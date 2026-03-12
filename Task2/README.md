@@ -1,16 +1,18 @@
-# React + Vite
+# Simple React + Vite Todo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a **simple Todo app** built using **React** and **Vite** with **Tailwind CSS**.  
+It allows you to **add todos**, **mark them as done/undo**, **delete todos**, and comes with **default todos on page load**. You can also **press Enter to add a todo**.  
 
-Currently, two official plugins are available:
+**Live Demo:** [https://we-lab-task-2.vercel.app/](https://we-lab-task-2.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Add a todo via **input field** or **pressing Enter**.  
+- Mark todo as **Done** or **Undo**.  
+- Delete todos.  
+- Default todos appear on page reload.  
+- Minimal, clean UI using **Tailwind CSS**.  
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
