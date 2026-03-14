@@ -1,121 +1,79 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const products = [
+    { id: 1, name: "Laptop", price: 1200 },
+    { id: 2, name: "Phone", price: 800 },
+    { id: 3, name: "Headphones", price: 150 },
+    { id: 4, name: "Keyboard", price: 70 },
+    { id: 5, name: "Mouse", price: 40 },
+  ];
+
+  const [search, setSearch] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+
+  const filteredProducts = products.filter((product) => {
+    const nameMatch = product.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    const priceMatch =
+      maxPrice === "" || product.price <= Number(maxPrice);
+
+    return nameMatch && priceMatch;
+  });
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+    <div className="min-h-screen bg-gray-100 p-10">
+      <h1 className="text-3xl font-bold text-center mb-8">
+        Product Catalog
+      </h1>
+
+      {/* Filters */}
+      <div className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow mb-10 space-y-4">
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+          <label className="block font-medium mb-1">
+            Search by Product Name
+          </label>
+          <input
+            type="text"
+            placeholder="e.g. Laptop"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full border p-2 rounded"
+          />
         </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <div>
+          <label className="block font-medium mb-1">
+            Max Price
+          </label>
+          <input
+            type="number"
+            placeholder="Enter maximum price"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(e.target.value)}
+            className="w-full border p-2 rounded"
+          />
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      </div>
+      <div className="grid gap-6 md:grid-cols-3">
+        {filteredProducts.map((product) => (
+          <div
+            key={product.id}
+            className="bg-white p-5 rounded-lg shadow"
+          >
+            <h2 className="text-xl font-semibold mb-2">
+              {product.name}
+            </h2>
+            <p className="text-gray-600">
+              Price: ${product.price}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
