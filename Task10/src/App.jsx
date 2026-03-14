@@ -1,121 +1,138 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import { FaUser, FaCog, FaShoppingCart } from "react-icons/fa";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeTab, setActiveTab] = useState("Profile");
+
+  const profile = {
+    name: "Syed Omer Ahmed Shamsi",
+    email: "omershamsi911@gmail.com",
+    memberSince: "Jan 2024",
+    avatar: "https://i.pravatar.cc/150?img=12",
+  };
+
+  const orders = [
+    { id: 101, item: "Laptop", date: "2026-03-10", status: "Delivered" },
+    { id: 102, item: "Smartphone", date: "2026-03-12", status: "Processing" },
+    { id: 103, item: "Headphones", date: "2026-03-13", status: "Shipped" },
+  ];
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="min-h-screen flex bg-gray-100">
+      <aside className="w-64 bg-white shadow-md flex flex-col">
+        <div className="p-6 text-2xl font-bold text-blue-600 border-b">
+          MyDashboard
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        <nav className="flex-1 p-4 space-y-2">
+          <button
+            className={`flex items-center gap-3 w-full px-4 py-3 rounded hover:bg-blue-50 transition ${
+              activeTab === "Profile" ? "bg-blue-100 font-semibold" : ""
+            }`}
+            onClick={() => setActiveTab("Profile")}
+          >
+            <FaUser /> Profile
+          </button>
+          <button
+            className={`flex items-center gap-3 w-full px-4 py-3 rounded hover:bg-blue-50 transition ${
+              activeTab === "Settings" ? "bg-blue-100 font-semibold" : ""
+            }`}
+            onClick={() => setActiveTab("Settings")}
+          >
+            <FaCog /> Settings
+          </button>
+          <button
+            className={`flex items-center gap-3 w-full px-4 py-3 rounded hover:bg-blue-50 transition ${
+              activeTab === "Orders" ? "bg-blue-100 font-semibold" : ""
+            }`}
+            onClick={() => setActiveTab("Orders")}
+          >
+            <FaShoppingCart /> Orders
+          </button>
+        </nav>
+      </aside>
+      <main className="flex-1 p-8">
+        {activeTab === "Profile" && (
+          <div className="flex flex-col items-center space-y-6">
+            <div className="bg-white shadow rounded-lg p-6 flex flex-col items-center w-full max-w-md">
+              <img
+                src={profile.avatar}
+                alt="Avatar"
+                className="w-24 h-24 rounded-full mb-4"
+              />
+              <h2 className="text-2xl font-bold">{profile.name}</h2>
+              <p className="text-gray-500">{profile.email}</p>
+              <p className="mt-2 text-gray-400 text-sm">
+                Member since {profile.memberSince}
+              </p>
+            </div>
+          </div>
+        )}
 
-      <div className="ticks"></div>
+        {activeTab === "Settings" && (
+          <div className="bg-white shadow rounded-lg p-6 max-w-lg mx-auto space-y-4">
+            <h2 className="text-2xl font-bold mb-4">Settings</h2>
+            <div>
+              <label className="block font-medium mb-1">Update Name:</label>
+              <input
+                type="text"
+                defaultValue={profile.name}
+                className="border p-2 rounded w-full"
+              />
+            </div>
+            <div>
+              <label className="block font-medium mb-1">Update Email:</label>
+              <input
+                type="email"
+                defaultValue={profile.email}
+                className="border p-2 rounded w-full"
+              />
+            </div>
+            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mt-2">
+              Save Changes
+            </button>
+          </div>
+        )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        {activeTab === "Orders" && (
+          <div className="max-w-4xl mx-auto bg-white shadow rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-4">Orders</h2>
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="py-2 px-4">Order ID</th>
+                  <th className="py-2 px-4">Item</th>
+                  <th className="py-2 px-4">Date</th>
+                  <th className="py-2 px-4">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((o) => (
+                  <tr key={o.id} className="border-b hover:bg-gray-50">
+                    <td className="py-2 px-4">{o.id}</td>
+                    <td className="py-2 px-4">{o.item}</td>
+                    <td className="py-2 px-4">{o.date}</td>
+                    <td className="py-2 px-4">
+                      <span
+                        className={`px-3 py-1 rounded text-white text-sm ${
+                          o.status === "Delivered"
+                            ? "bg-green-500"
+                            : o.status === "Processing"
+                            ? "bg-yellow-500"
+                            : "bg-blue-500"
+                        }`}
+                      >
+                        {o.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
